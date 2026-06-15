@@ -1,6 +1,8 @@
 body{
     margin: 0;
+    background-color: #F5F5F5;
 }
+
 *{
     margin: 0;
     padding: 0;
@@ -39,12 +41,15 @@ body{
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
+    background-color: white;
 }
 .card {
     margin: 0 40px 40px 40px;
     border: 1px solid #E0E0E0;
     border-radius: 12px;
     padding: 20px 24px;
+    background-color: white;
+    margin-top: 20px;
 }
 
 .card-toolbar {
@@ -238,7 +243,6 @@ body{
 
 .action-item:hover { background-color: #F5F5F5; }
 
-/* PAGINATION */
 .pagination-wrapper {
     display: flex;
     flex-direction: column;
@@ -256,6 +260,38 @@ body{
     display: flex;
     gap: 6px;
     font-size: 14px;
+    align-items: center;
+}
+
+.pagination-links span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #333;
+    transition: background-color 0.15s;
+}
+
+.pagination-links span:hover {
+    background-color: #F0F0F0;
+}
+
+.pagination-links span.page-active {
+    background-color: #B5161B;
+    color: white;
+    font-weight: 600;
+}
+
+.pagination-links span.page-arrow {
+    color: #999;
+}
+
+.pagination-links span.page-arrow:hover {
+    background-color: #F0F0F0;
+    color: #333;
 }
 .th-icon {
     width: 20px;

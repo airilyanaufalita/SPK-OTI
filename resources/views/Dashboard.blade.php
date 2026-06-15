@@ -3,25 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Management SPK</title>
-
-    @vite([
-    'resources/css/dashboard.css'
-    ])
+    <title>Management SPK</title>   
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 </head>
 <body>
-    <header class="header">
-    <div class="header-left">
-    <img src="{{ asset('images/logo.OTI.jpg') }}" alt="Logo" class="logo">
-    <h1>Management SPK</h1>
-    </div>
-
-    <div class="header-right">
-    <img src="{{ asset('images/vaadin_office.png') }}" alt="Building" class="building-icon">
-    <h2>PT. Ohtomi Teknologi Indonesia</h2>
-    </div>
-
-</header>
+    @include('layout.header')
 <div class="top-bar">
 
     <div class="status-dropdown">
@@ -52,8 +38,9 @@
 </div>
     <div class="card">
         <div class="card-toolbar">
-        <button class="add-btn">
+        <button class="add-btn" onclick="window.location.href='{{ route('add-data')}}'">
              <img src="{{ asset('images/add.png') }}" alt="Add" class="btn-icon">
+             
              Add Data
         </button>
         <button class="filter-btn">
@@ -118,19 +105,18 @@ $spkList = [
            <div class="pagination-wrapper">
 <p class="pagination-info">Showing 1-10 of 945 records</p>
 <div class="pagination-links">
-    <span>‹</span>
-    <span class="page-active">1</span>
-    <span>2</span>
-    <span>3</span>
-    <span>4</span>
-    <span>5</span>
-    <span>6</span>
-    <span>7</span>
-    <span>8</span>
-    <span>9</span>
-    <span>10</span>
-    <span>Next</span>
-    <span>›</span>
+    <span class="page-arrow" onclick="changePage(this, 'prev')">‹</span>
+    <span class="page-active" onclick="changePage(this)">1</span>
+    <span onclick="changePage(this)">2</span>
+    <span onclick="changePage(this)">3</span>
+    <span onclick="changePage(this)">4</span>
+    <span onclick="changePage(this)">5</span>
+    <span onclick="changePage(this)">6</span>
+    <span onclick="changePage(this)">7</span>
+    <span onclick="changePage(this)">8</span>
+    <span onclick="changePage(this)">9</span>
+    <span onclick="changePage(this)">10</span>
+    <span class="page-arrow" onclick="changePage(this, 'next')">›</span>
 </div>
         </div>
     
@@ -161,6 +147,26 @@ document.addEventListener('click', function(e) {
         document.querySelectorAll('.action-menu').forEach(m => m.classList.add('hidden'));
     }
 });
+function changePage(el, direction) {
+    const links = document.querySelectorAll('.pagination-links span:not(.page-arrow)');
+    const activeEl = document.querySelector('.pagination-links span.page-active');
+
+    if (direction === 'prev' || direction === 'next') {
+        const pages = Array.from(links);
+        const currentIndex = pages.indexOf(activeEl);
+
+        if (direction === 'prev' && currentIndex > 0) {
+            pages[currentIndex].classList.remove('page-active');
+            pages[currentIndex - 1].classList.add('page-active');
+        } else if (direction === 'next' && currentIndex < pages.length - 1) {
+            pages[currentIndex].classList.remove('page-active');
+            pages[currentIndex + 1].classList.add('page-active');
+        }
+    } else {
+        document.querySelectorAll('.pagination-links span').forEach(s => s.classList.remove('page-active'));
+        el.classList.add('page-active');
+    }
+}
 </script>
 </body>
 </html>
